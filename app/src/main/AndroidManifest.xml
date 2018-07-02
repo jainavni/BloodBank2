@@ -3,6 +3,8 @@
     package="com.example.gagan.bloodbank">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-feature android:name="android.hardware.telephony" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -25,11 +27,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".SignUp" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".PhoneVerify" />
         <activity android:name=".hello" />
-        <activity android:name=".Profile"></activity>
+        <activity android:name=".Profile" />
+        <activity android:name=".Test"></activity>
     </application>
 
 </manifest>

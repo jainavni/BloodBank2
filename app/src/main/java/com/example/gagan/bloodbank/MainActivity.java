@@ -45,13 +45,15 @@ public class MainActivity extends AppCompatActivity {
         progressDialog=new ProgressDialog(this);
         mfirebase=FirebaseAuth.getInstance();
         forgetpassword=(TextView)findViewById(R.id.forgetpass);
+
+
         mstate= new FirebaseAuth.AuthStateListener() {
            @Override
 
            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                if (mfirebase.getCurrentUser()!=null){// to check whether user is already logged in or not
-                  // startActivity(new Intent(MainActivity.this,Profile.class));
-
+                   startActivity(new Intent(MainActivity.this,Profile.class));
+                   //ok
                }
            }
        };
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         msignup.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(MainActivity.this,SignUp.class));
+        startActivity(new Intent(MainActivity.this,hello.class));
     }
 });
         forgetpassword.setOnClickListener(new View.OnClickListener() {
