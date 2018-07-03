@@ -54,13 +54,7 @@ public class PhoneVerify extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verify);
 
-//        UserSharedPrefrence sharedPrefrence=new UserSharedPrefrence(this);
-//        if(!sharedPrefrence.getFirst_time_opening())
-//        {
-//            startActivity(new Intent(this,Profile.class));
-//        }
-//        sharedPrefrence.setFirst_time_opening(false);
-//        //try kar mobile pe ye sara shyad phone otp verify k bad dalna h
+
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog);
         ephonenum = (EditText) findViewById(R.id.field_phone_number);
@@ -93,7 +87,7 @@ public class PhoneVerify extends AppCompatActivity {
                 Toast.makeText(PhoneVerify.this, "OTP Sent,Please Check Your Phone", Toast.LENGTH_SHORT).show();
                 dialog.show();
                 dialog.setCancelable(false);
-                // startActivity(new Intent(PhoneVerify.this,PhoneOtp.class));
+
             }
         });
 
@@ -128,7 +122,7 @@ public class PhoneVerify extends AppCompatActivity {
 
             @Override
             public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken token) {
+                                    PhoneAuthProvider.ForceResendingToken token) {
 
                 Toast.makeText(PhoneVerify.this, "Code Has Been Sent", Toast.LENGTH_SHORT).show();
                 mVerificationId = verificationId;
@@ -202,21 +196,10 @@ public class PhoneVerify extends AppCompatActivity {
 //                                // using the following line to edit/commit prefs
                                     startActivity(new Intent(PhoneVerify.this, hello.class));
 //                                prefs.edit().putBoolean("firstrun", false).commit();
-//                            }
-//                            else{
-//                                startActivity(new Intent(PhoneVerify.this, Profile.class));
-//                            }
-
-                            //UserSharedPrefrence sharedPrefrence=new UserSharedPrefrence(PhoneVerify.this);
-                            //if(!sharedPrefrence.getFirst_time_opening())
-                            //{
-                              //  startActivity(new Intent(PhoneVerify.this,Profile.class));
-                            //}
-                            //sharedPrefrence.setFirst_time_opening(false);
-                            //
+//
 
                         }
-                        // FirebaseUser user = task.getResult().getUser();
+
 
 
                         else {
@@ -233,7 +216,7 @@ public class PhoneVerify extends AppCompatActivity {
 
 
 
-        //abe ye dhek ese hoga
+
 
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("user");
         Query query=reference.orderByChild("phone").equalTo("email id yaa phone no rukh le");
@@ -241,7 +224,7 @@ public class PhoneVerify extends AppCompatActivity {
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //yaha se particlaur data aa jayega //ek baar try kar le phir baad me kar doga ok
+
             }
 
             @Override
@@ -273,7 +256,7 @@ public class PhoneVerify extends AppCompatActivity {
         firebaseAuth.addAuthStateListener(mstate);
     }
 
-    //dhel le baar check kar  but me abhi bhi sure nhi hu ki chalegi
+
 
     protected void onResume() {
         super.onResume();

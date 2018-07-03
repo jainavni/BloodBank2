@@ -1,11 +1,18 @@
 package com.example.gagan.bloodbank;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
@@ -17,11 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>implements Filterable {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> implements Filterable {
 
     private List<ListItem> listItems;
     private List<ListItem> mOriginalValues;
     private Context context;
+
 
     public CustomAdapter(List<ListItem> listItems, Context context) {
         this.listItems = listItems;
@@ -30,23 +38,49 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_list,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_list, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ListItem listItem=listItems.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final ListItem listItem = listItems.get(position);
         holder.name.setText(listItem.getName());
         holder.bloodgroup.setText(listItem.getBloodgroup());
         holder.city.setText(listItem.getCity());
+        holder.mob.setText(listItem.getMob());
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog_phone_message);
+                dialog.show();
+                Button message_btn = dialog.findViewById(R.id.message_btn);
+                Button call_bnt = dialog.findViewById(R.id.call_btn);
+                message_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri uri = Uri.parse("smsto:" + holder.mob.getText().toString());
+                        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                        it.putExtra("sms_body", "The SMS text");
+                        context.startActivity(it);
+                    }
+                });
+
+                call_bnt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + holder.mob.getText().toString()));
+                        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+
 
             }
         });
@@ -121,6 +155,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public TextView name;
         public TextView bloodgroup;
         public TextView city;
+        public TextView mob;
         public LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
@@ -129,6 +164,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             name= (TextView)itemView.findViewById(R.id.name);
             bloodgroup=(TextView)itemView.findViewById(R.id.bloodgroup);
             city=(TextView)itemView.findViewById(R.id.city);
+            mob=(TextView)itemView.findViewById(R.id.mob);
             linearLayout=itemView.findViewById(R.id.linearlayout);
         }
 

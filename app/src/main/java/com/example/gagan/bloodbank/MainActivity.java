@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         forgetpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,PhoneVerify.class));
+                startActivity(new Intent(MainActivity.this,hello.class));
             }
         });
 

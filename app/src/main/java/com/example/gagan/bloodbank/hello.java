@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,8 +55,8 @@ public class hello extends AppCompatActivity {
     private ProgressDialog progressdialog;
     private FirebaseAuth mfirebaseauth;
     private String user_donor = null;
-    private static final String KEY_STATE = "state";
-    private static final String KEY_CITIES = "cities";
+    private String states=null;
+    private String city=null;
     private String URL="http://api.androiddeft.com/cities/cities_array.json";
 
     String user_gender = null, user_bloodgroup = null;
@@ -80,7 +81,7 @@ public class hello extends AppCompatActivity {
         echeckBox = findViewById(R.id.check);
         esignup = findViewById(R.id.signup);
         radioGroup = findViewById(R.id.radiogroup);
-
+        progressdialog=new ProgressDialog(this);
 
         //eaddress.addTextChangedListener(new GenericWatcher(R.id.address));
 
@@ -114,7 +115,17 @@ public class hello extends AppCompatActivity {
 
             }
         });
+        stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         esignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +155,10 @@ public class hello extends AppCompatActivity {
                     Toast.makeText(hello.this, "Please Enter Valid Email Address", Toast.LENGTH_SHORT).show();
                     progressdialog.dismiss();
                 } else {
-                    addData(ename.getText().toString().trim(), eemail.getText().toString().trim(), eaddress.getText().toString().trim(), ecity.getText().toString().trim(), emob.getText().toString().trim(), user_bloodgroup, user_gender, user_donor);
+                    Cities state=(Cities)stateSpinner.getSelectedItem();
+                    states=state.getState();
+                    city = citySpinner.getSelectedItem().toString();
+                    addData(ename.getText().toString().trim(), eemail.getText().toString().trim(), eaddress.getText().toString().trim(),states,city, emob.getText().toString().trim(), user_bloodgroup, user_gender, user_donor);
                     startActivity(new Intent(hello.this, Profile.class));
                 }
                 progressdialog.dismiss();
@@ -156,20 +170,23 @@ public class hello extends AppCompatActivity {
 public void loadStateandCity()
 {
     final List<Cities> stateList=new ArrayList<>();
-     List<String> states=new ArrayList<>();
+     final List<String> states=new ArrayList<>();
     JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
             try {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject jsonObject = response.getJSONObject(i);
-                    String state = response.getString(i);
-                    JSONArray cities = response.getJSONArray(123);  //abhi shi kaam kar rahi hai ye data show ho gaya h recyler me ab click ;aga k call ya msg krna h number pe ok
+                    String state = jsonObject.getString("state");
+                    Log.d("GAGAN","STATE IS "+state);
+                    JSONArray cities = jsonObject.getJSONArray("cities");
                     List<String> citiesList = new ArrayList<>();
                     for (int j = 0; j < cities.length(); j++) {
                         citiesList.add(cities.getString(j));
+                        Log.d("GAGAN","CITIES IS "+cities.getString(j));
                     }
                     stateList.add(new Cities(state, citiesList));
+                    states.add(state);
 
 
                 }
@@ -204,13 +221,14 @@ public void loadStateandCity()
     });
     Singleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
 }
-    public void addData(String name, String email, String address, String city, String mobile, String bloodgroup, String gender, String donor) {
+    public void addData(String name, String email, String address, String state ,String city, String mobile, String bloodgroup, String gender, String donor) {
         DatabaseReference refrerence = FirebaseDatabase.getInstance().getReference("User");
-        UserInfo info = new UserInfo(name, email, address, city, gender, bloodgroup, mobile, donor);
+        UserInfo info = new UserInfo(name, email, address, state ,city, gender, bloodgroup, mobile, donor);
         refrerence.child(refrerence.push().getKey()).setValue(info);
         progressdialog.dismiss();
 
-    }}
+    }
+}
 
    /* class GenericWatcher implements TextWatcher {
 
