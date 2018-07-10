@@ -6,9 +6,11 @@ android {
         applicationId "com.example.gagan.bloodbank"
         minSdkVersion 16
         targetSdkVersion 27
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+       // multiDexEnabled true
     }
     buildTypes {
         release {
@@ -27,6 +29,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.android.support:design:27.1.1'
+    // implementation 'com.android.support:support-v4:27.1.1'
+    //implementation 'com.android.support:support-v4:27.1.1'
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.volley:volley:1.0.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -38,6 +43,9 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.google.code.gson:gson:2.8.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

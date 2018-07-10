@@ -10,6 +10,15 @@
     android:background="#F64C28"
     android:weightSum="3">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/phone_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#b72f1d"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
+
+    </android.support.v7.widget.Toolbar>
+
     <ImageView
         android:id="@+id/icon"
         android:layout_weight="1"
@@ -41,7 +50,7 @@
             android:layout_margin="20dp"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/abril_fatface"
-            android:text="We Will send you One Time Password"/>
+            android:text="We Will Send You One Time Password"/>
 
     </LinearLayout>
     <LinearLayout
@@ -57,8 +66,9 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_weight="1"
+            android:textColor="#FFF"
             android:fontFamily="@font/abril_fatface"
             android:text="Send OTP"
-            android:background="@drawable/button"/>
+            android:background="@drawable/button1"/>
     </LinearLayout>
 </LinearLayout>

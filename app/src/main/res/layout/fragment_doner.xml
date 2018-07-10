@@ -5,24 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#bc5307"
-    tools:context=".Profile">
+    android:background="#ffffff"
+    tools:context=".DonerFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#b72f1d"
-        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
-    </android.support.v7.widget.Toolbar>
-
+        android:background="#000"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:padding="10dp"
-        android:background="#e5680d"
         android:layout_below="@+id/profile_toolbar"
         android:id="@+id/recyclerview">
 

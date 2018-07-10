@@ -1,9 +1,9 @@
 package com.example.gagan.bloodbank;
 
 public class UserInfo {
-    String name,email,address,state,city,gender,bloodgroup,mob,donor;
+    String name, email, address, state, city, gender, bloodgroup, mob, donor,userid;
 
-    public UserInfo(String name, String email, String address, String state, String city, String gender, String bloodgroup, String mob, String donor) {
+    public UserInfo(String name, String email, String address, String state, String city, String gender, String bloodgroup, String mob, String donor,String userid) {
         this.name = name;
         this.email = email;
         this.address = address;
@@ -13,6 +13,9 @@ public class UserInfo {
         this.bloodgroup = bloodgroup;
         this.mob = mob;
         this.donor = donor;
+        this.userid=userid;
+
+
     }
 
     public String getName() {
@@ -85,5 +88,13 @@ public class UserInfo {
 
     public void setDonor(String donor) {
         this.donor = donor;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 }

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +54,9 @@ public class PhoneVerify extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verify);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.phone_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Blood Bank");
 
 
         dialog = new Dialog(this);
@@ -61,7 +65,6 @@ public class PhoneVerify extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         sendOtp = (Button) findViewById(R.id.button_start_verification);
         prefs = getSharedPreferences("com.example.gagan.bloodbank", MODE_PRIVATE);
-
 
 
         mstate = new FirebaseAuth.AuthStateListener() {
@@ -122,7 +125,7 @@ public class PhoneVerify extends AppCompatActivity {
 
             @Override
             public void onCodeSent(String verificationId,
-                                    PhoneAuthProvider.ForceResendingToken token) {
+                                   PhoneAuthProvider.ForceResendingToken token) {
 
                 Toast.makeText(PhoneVerify.this, "Code Has Been Sent", Toast.LENGTH_SHORT).show();
                 mVerificationId = verificationId;
@@ -137,6 +140,7 @@ public class PhoneVerify extends AppCompatActivity {
         final EditText otp = dialog.findViewById(R.id.field_verification_code);
         final TextView mob = dialog.findViewById(R.id.mob);
         final Button resend = dialog.findViewById(R.id.button_resend_otp);
+        dialog.setTitle("VERIFY OTP");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         try {
             mob.setText(user.getPhoneNumber());
@@ -194,15 +198,11 @@ public class PhoneVerify extends AppCompatActivity {
 //                            if (prefs.getBoolean("Firstrun", true)) {
 //                                // Do first run stuff here then set 'firstrun' as false
 //                                // using the following line to edit/commit prefs
-                                    startActivity(new Intent(PhoneVerify.this, hello.class));
+                            startActivity(new Intent(PhoneVerify.this, hello.class));
 //                                prefs.edit().putBoolean("firstrun", false).commit();
 //
 
-                        }
-
-
-
-                        else {
+                        } else {
                             // Sign in failed, display a message and update the UI
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 Toast.makeText(PhoneVerify.this, "Invalid Credential", Toast.LENGTH_SHORT).show();
@@ -215,54 +215,4 @@ public class PhoneVerify extends AppCompatActivity {
                 });
 
 
-
-
-
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("user");
-        Query query=reference.orderByChild("phone").equalTo("email id yaa phone no rukh le");
-
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
-
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(mstate);
-    }
-
-
-
-    protected void onResume() {
-        super.onResume();
-
-
-
-    }
-}
-
+    }}

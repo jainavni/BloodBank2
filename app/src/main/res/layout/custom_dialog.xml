@@ -33,7 +33,7 @@
             android:fontFamily="@font/abril_fatface"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Please enter OTP sent to"/>
+            android:text="Please Enter OTP sent to"/>
 
         <TextView
             android:textSize="24dp"

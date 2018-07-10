@@ -57,6 +57,7 @@ public class hello extends AppCompatActivity {
     private String user_donor = null;
     private String states=null;
     private String city=null;
+    private String userid;
     private String URL="http://api.androiddeft.com/cities/cities_array.json";
 
     String user_gender = null, user_bloodgroup = null;
@@ -68,7 +69,7 @@ public class hello extends AppCompatActivity {
 
         dropdown = findViewById(R.id.spinner);
         String[] items = new String[]{"A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, items);
         dropdown.setAdapter(adapter);
         progressdialog = new ProgressDialog(this);
         mfirebaseauth = FirebaseAuth.getInstance();
@@ -82,8 +83,6 @@ public class hello extends AppCompatActivity {
         esignup = findViewById(R.id.signup);
         radioGroup = findViewById(R.id.radiogroup);
         progressdialog=new ProgressDialog(this);
-
-        //eaddress.addTextChangedListener(new GenericWatcher(R.id.address));
 
         FirebaseUser firebaseUser = mfirebaseauth.getInstance().getCurrentUser();
         try {
@@ -115,17 +114,7 @@ public class hello extends AppCompatActivity {
 
             }
         });
-        stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         esignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,27 +128,36 @@ public class hello extends AppCompatActivity {
                 }
                 if (user_bloodgroup == null) {
                     Toast.makeText(hello.this, "Please Select The Blood group", Toast.LENGTH_SHORT).show();
-                    progressdialog.dismiss();
+
                 }
                 if (user_gender == null) {
                     Toast.makeText(hello.this, "Please Select The Gender", Toast.LENGTH_SHORT).show();
-                    progressdialog.dismiss();
+
                 }
 
-
-                if (TextUtils.isEmpty(ename.getText().toString().trim()) || TextUtils.isEmpty(eemail.getText().toString().trim()) || TextUtils.isEmpty(emob.getText().toString().trim()) || TextUtils.isEmpty(eaddress.getText().toString()) || TextUtils.isEmpty(ecity.getText().toString().trim())) {
+                if (TextUtils.isEmpty(ename.getText().toString().trim()) || TextUtils.isEmpty(eemail.getText().toString().trim()) || TextUtils.isEmpty(emob.getText().toString().trim()) || TextUtils.isEmpty(eaddress.getText().toString()) ) {
                     Toast.makeText(hello.this, "Please Fill All The  Details", Toast.LENGTH_SHORT).show();
-                    progressdialog.dismiss();
+
                 }
                 if (!Patterns.EMAIL_ADDRESS.matcher(eemail.getText().toString()).matches()) {
                     Toast.makeText(hello.this, "Please Enter Valid Email Address", Toast.LENGTH_SHORT).show();
-                    progressdialog.dismiss();
+
                 } else {
+                    Log.d("GAGAN","ÄDD DATA TO CALL");
                     Cities state=(Cities)stateSpinner.getSelectedItem();
                     states=state.getState();
                     city = citySpinner.getSelectedItem().toString();
-                    addData(ename.getText().toString().trim(), eemail.getText().toString().trim(), eaddress.getText().toString().trim(),states,city, emob.getText().toString().trim(), user_bloodgroup, user_gender, user_donor);
-                    startActivity(new Intent(hello.this, Profile.class));
+                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    String uid = firebaseUser.getUid();
+
+                    Log.d("GAGAN",uid);
+                    addData(ename.getText().toString().trim(), eemail.getText().toString().trim(), eaddress.getText().toString().trim(),states,city, emob.getText().toString().trim(), user_bloodgroup, user_gender, user_donor,userid);
+                   // startActivity(new Intent(hello.this, ViewPagerActivity.class));
+
+                    Intent intent = new Intent(hello.this,Profile.class);
+                    //intent.putExtra("ID",userid);
+                    startActivity(intent);
                 }
                 progressdialog.dismiss();
 
@@ -167,98 +165,69 @@ public class hello extends AppCompatActivity {
         });
 
     }
-public void loadStateandCity()
-{
-    final List<Cities> stateList=new ArrayList<>();
-     final List<String> states=new ArrayList<>();
-    JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
-        @Override
-        public void onResponse(JSONArray response) {
-            try {
-                for (int i = 0; i < response.length(); i++) {
-                    JSONObject jsonObject = response.getJSONObject(i);
-                    String state = jsonObject.getString("state");
-                    Log.d("GAGAN","STATE IS "+state);
-                    JSONArray cities = jsonObject.getJSONArray("cities");
-                    List<String> citiesList = new ArrayList<>();
-                    for (int j = 0; j < cities.length(); j++) {
-                        citiesList.add(cities.getString(j));
-                        Log.d("GAGAN","CITIES IS "+cities.getString(j));
+    public void loadStateandCity()
+    {
+        final List<Cities> stateList=new ArrayList<>();
+        final List<String> states=new ArrayList<>();
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        String state = jsonObject.getString("state");
+                        Log.d("GAGAN","STATE IS "+state);
+                        JSONArray cities = jsonObject.getJSONArray("cities");
+                        List<String> citiesList = new ArrayList<>();
+                        for (int j = 0; j < cities.length(); j++) {
+                            citiesList.add(cities.getString(j));
+                            Log.d("GAGAN","CITIES IS "+cities.getString(j));
+                        }
+                        stateList.add(new Cities(state, citiesList));
+                        states.add(state);
+
+
                     }
-                    stateList.add(new Cities(state, citiesList));
-                    states.add(state);
+                    final CityAdapter cityAdapter = new CityAdapter(hello.this,
+                            R.layout.state_list, R.id.spinnerText, stateList);
+                    stateSpinner.setAdapter(cityAdapter);
+                    stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            Cities cityDetails = cityAdapter.getItem(position);
+                            List<String> cityList = cityDetails.getCities();
+                            ArrayAdapter citiesAdapter = new ArrayAdapter<>(hello.this,
+                                    R.layout.city_list, R.id.cityspinnerText, cityList);
+                            citySpinner.setAdapter(citiesAdapter);
+                        }
 
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                final CityAdapter cityAdapter = new CityAdapter(hello.this,
-                        R.layout.state_list, R.id.spinnerText, stateList);
-                stateSpinner.setAdapter(cityAdapter);
-                stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        Cities cityDetails = cityAdapter.getItem(position);
-                        List<String> cityList = cityDetails.getCities();
-                        ArrayAdapter citiesAdapter = new ArrayAdapter<>(hello.this,
-                                R.layout.city_list, R.id.cityspinnerText, cityList);
-                        citySpinner.setAdapter(citiesAdapter);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-        }
-    }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
-        }
-    });
-    Singleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
-}
-    public void addData(String name, String email, String address, String state ,String city, String mobile, String bloodgroup, String gender, String donor) {
-        DatabaseReference refrerence = FirebaseDatabase.getInstance().getReference("User");
-        UserInfo info = new UserInfo(name, email, address, state ,city, gender, bloodgroup, mobile, donor);
-        refrerence.child(refrerence.push().getKey()).setValue(info);
-        progressdialog.dismiss();
+            }
+        });
+        Singleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+    }
+    public void addData(String name, String email, String address, String state ,String city, String mobile, String bloodgroup, String gender, String donor,String userid) {
+        Log.d("GAGAN","METGOD CALL ADD DATA");
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        String uid = firebaseUser.getUid();
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(uid);
+        UserInfo info = new UserInfo(name, email, address, state ,city, gender, bloodgroup, mobile, donor,uid);
+        databaseReference.setValue(info);
 
     }
 }
-
-   /* class GenericWatcher implements TextWatcher {
-
-        int id;
-
-        public GenericWatcher(int id) {
-            this.id = id;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            switch (id) {
-                case R.id.address:
-                    if (TextUtils.isEmpty(s) && s.length() == 6) {
-
-                    }
-                    break;
-            }
-        }
-    }
-
-}*/
-

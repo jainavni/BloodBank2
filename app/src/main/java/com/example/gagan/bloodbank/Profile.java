@@ -1,8 +1,12 @@
 package com.example.gagan.bloodbank;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +15,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -40,12 +47,16 @@ public class Profile extends AppCompatActivity {
     private List<ListItem> listItems;
     private DatabaseReference databaseReference;
 
-
+// ye wALA DONOR FRAGMENT ME KRNA H ok
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.profile_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Blood Bank");
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -63,6 +74,7 @@ public class Profile extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 listItems.add(dataSnapshot.getValue(ListItem.class));
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -85,35 +97,7 @@ public class Profile extends AppCompatActivity {
 
             }
         });
-        /*
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
-                    ListItem listItem=new ListItem();
-                    listItem=snapshot.getValue(ListItem.class);
-                    String name=listItem.getName();
-                    String city=listItem.getCity();
-                    String mob=listItem.getBloodgroup();
-                    ListItem listItem1=new ListItem(name,city,mob);
-                    Log.i("Gagan",name);
-                    listItems.add(listItem1);
 
-
-            }
-                adapter.notifyDataSetChanged();
-        }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }}
-    */
     }
 
     @Override
@@ -144,5 +128,20 @@ public class Profile extends AppCompatActivity {
             e.printStackTrace();
         }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.action_profile){
+            startActivity(new Intent(Profile.this, EditProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        }
+        if (item.getItemId()==R.id.action_logout)
+        {
+            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+            firebaseAuth.signOut();
+            startActivity(new Intent(Profile.this,PhoneVerify.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

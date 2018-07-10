@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ef4010"
+    android:background="#ffeddd"
     tools:context=".hello">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,37 +14,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <EditText
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Name.."
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:drawablePadding="7dp"
+                android:drawableLeft="@drawable/ic_person_name"
+                android:hint="Name..."
+                android:inputType="textPersonName"
                 android:maxLines="1"
-                android:textColorHint="#ffff"
-                android:inputType="text"
+                android:textColorHint="#4286f4"
                 android:singleLine="true"
-                android:id="@+id/name"/>
-            <EditText
+                android:paddingLeft="7dp"
+                android:imeOptions="actionNext"
+                app:met_baseColor="#6d6e70"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="#000714"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
+                android:imeOptions="actionNext"
+                app:met_floatingLabel="highlight"
                 android:hint="Email.."
+                android:drawablePadding="7dp"
+                android:drawableLeft="@drawable/ic_email"
+                android:paddingLeft="7dp"
+                android:textAllCaps="false"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColorHint="#ffff"
                 android:inputType="textEmailAddress"
                 android:id="@+id/email"/>
 
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:hint="Mobile.."
+                android:layout_marginBottom="5dp"
+                android:hint="Mobile..."
+                android:imeOptions="actionNext"
+                app:met_floatingLabel="highlight"
+                android:drawablePadding="7dp"
+                android:drawableLeft="@drawable/ic_smartphone"
+                android:paddingLeft="7dp"
+                android:textAllCaps="false"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:digits="0123456789"
@@ -51,13 +77,20 @@
                 android:inputType="number"
                 android:maxLength="13"
                 android:id="@+id/mob"/>
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:hint="Address.."
+                android:layout_marginBottom="5dp"
+                android:hint="Address..."
+                android:imeOptions="actionNext"
+                app:met_floatingLabel="highlight"
+                android:drawablePadding="7dp"
+                android:drawableLeft="@drawable/ic_home_black"
+                android:paddingLeft="7dp"
+                android:textAllCaps="false"
+                android:maxLines="1"
                 android:singleLine="true"
                 android:textColorHint="#ffff"
                 android:inputType="text"
@@ -65,7 +98,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -75,11 +111,13 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="#FFFF" />
+                    android:textColor="#000"
+                    android:textSize="15dp"/>
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:id="@+id/statespinner"
                     android:spinnerMode="dropdown"/>
@@ -87,8 +125,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,14 +138,17 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="#FFFF" />
+                    android:textSize="15dp"
+                    android:textColor="#000" />
+
                 <Spinner
+                    android:id="@+id/cityspinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:id="@+id/cityspinner"
-                    android:spinnerMode="dropdown"/>
+                    android:spinnerMode="dropdown" />
             </LinearLayout>
 
 
@@ -113,14 +156,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="GENDER:"
                     android:fontFamily="@font/abril_fatface"
-                    android:layout_margin="10dp"
-                    android:textColor="#FFFF" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="15dp"
+                    android:textColor="#000" />
                 <RadioGroup
                     android:id="@+id/radiogroup"
                     android:layout_width="wrap_content"
@@ -129,6 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Male"
+                        android:textColor="#000"
                         android:checked="false"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
@@ -137,6 +188,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Female"
+                        android:textColor="#000"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
                         android:id="@+id/female"/>>
@@ -146,19 +198,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BLOOD GROUP:"
                     android:fontFamily="@font/abril_fatface"
-                    android:layout_margin="10dp"
-                    android:textColor="#FFFF" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="15dp"
+                    android:textColor="#000" />
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
                     android:id="@+id/spinner"
                     android:spinnerMode="dropdown">
                 </Spinner>
@@ -167,25 +227,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="I am a Donor"
+                android:textSize="15dp"
                 android:id="@+id/check"
                 android:checked="false"
-                android:textColor="#ffff"
-                android:layout_margin="5dp"/>
+                android:textColor="#000"
+                android:fontFamily="@font/abril_fatface"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"/>
 
             <Button
                 android:id="@+id/signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
-                android:text="SIGNUP"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/button1"
+                android:clickable="true"
+                android:focusable="true"
                 android:fontFamily="@font/abril_fatface"
-                android:layout_marginBottom="10dp"
+                android:shadowColor="#000"
+                android:text="SIGNUP"
                 android:textAlignment="center"
-                android:clickable="true" />
+                android:textColor="#FFFF" />
 
         </LinearLayout>
     </ScrollView>

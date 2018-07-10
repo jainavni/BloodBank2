@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dbcdc0">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You Can Contact to Donar Via Phone or Message "/>
+        android:text="You Can Contact to Donor Via Phone or Message "
+        android:fontFamily="@font/abril_fatface"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/text"
+        android:singleLine="true"
+        android:textColor="#c16513"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textSize="16dp"/>
+
 
     <Button
         android:id="@+id/call_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="148dp"
+        android:layout_marginLeft="20dp"
         android:background="@color/colorPrimaryDark"
         android:text="Call"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/ic_call_black"
         android:textAllCaps="false"
         android:textColor="#fff" />
 
@@ -26,11 +44,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/call_btn"
         android:layout_marginEnd="26dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="148dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginRight="26dp"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/ic_message_black"
         android:background="@color/colorPrimary"
-        android:text="Mesage"
+        android:text="Message"
         android:textAllCaps="false"
         android:textColor="#fff" />
-
 </RelativeLayout>
