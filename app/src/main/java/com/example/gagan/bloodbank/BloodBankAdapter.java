@@ -17,13 +17,17 @@ import java.util.List;
 public class BloodBankAdapter extends RecyclerView.Adapter<BloodBankAdapter.BankViewHolder>  {
 
     private List<BloodBankItem> listItems;
-    private List<BloodBankItem> mOriginalValues;
     private Context context;
+    BloodBankClickListener mListener;
 
-    public BloodBankAdapter(List<BloodBankItem> listItems, Context context) {
+    public interface BloodBankClickListener {
+        void onItemClick(View view,int position);
+    }
+
+    public BloodBankAdapter(List<BloodBankItem> listItems, Context context, BloodBankClickListener listener) {
         this.listItems = listItems;
-        this.mOriginalValues = listItems;
         this.context = context;
+        this.mListener = listener;
     }
 
     @NonNull
@@ -39,13 +43,16 @@ public class BloodBankAdapter extends RecyclerView.Adapter<BloodBankAdapter.Bank
         holder.bankName.setText(listItem.getBloodBankName());
         holder.bankCity.setText(listItem.getCity());
         holder.bankState.setText(listItem.getState());
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "Position " + position , Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(BloodBankAdapter.this,BloodBankInfo.class);
-//                intent.putExtra("ID",position);
-//                startActivity(intent);
+                if (position != RecyclerView.NO_POSITION) {
+                    // mainActivity.itemClicked(position);
+                    mListener.onItemClick(view, position);
+
+                }
             }
         });
     }
@@ -56,7 +63,7 @@ public class BloodBankAdapter extends RecyclerView.Adapter<BloodBankAdapter.Bank
     }
 
 
-    public class BankViewHolder extends RecyclerView.ViewHolder
+    public class BankViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
         {
             public TextView bankName;
             public TextView bankDistrict;
@@ -71,8 +78,14 @@ public class BloodBankAdapter extends RecyclerView.Adapter<BloodBankAdapter.Bank
                 bankCity=(TextView)itemView.findViewById(R.id.bank_city);
                 bankState=(TextView)itemView.findViewById(R.id.bank_state);
                 linearLayout = itemView.findViewById(R.id.bloodbank_linearlayout);
+                itemView.setClickable(true);
+                linearLayout.setOnClickListener(this);
 
             }
 
 
+            @Override
+            public void onClick(View view) {
+                mListener.onItemClick(view,getAdapterPosition());
+            }
         }}

@@ -1,9 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<ScrollView
     android:layout_height="match_parent"
-    tools:context=".BloodBankInfo">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#eee">
+    
+    
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_margin="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:background="#eee"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView android:textColor="#000"
+        android:id="@+id/mName"
+        android:text="Name"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView android:textColor="#000"
+        android:id="@+id/mAddress"
+        android:text="Address"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView android:textColor="#000"
+        android:id="@+id/mDistrict"
+        android:text="District"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView android:textColor="#000"
+        android:id="@+id/mCity"
+        android:text="City"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView android:textColor="#000"
+        android:id="@+id/mState"
+        android:text="State"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    
+    <TextView android:textColor="#000"
+        android:id="@+id/mPincode"
+        android:text="Pincode"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView android:textColor="#000"
+        android:id="@+id/mContact"
+        android:text="Contact"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView android:textColor="#000"
+        android:id="@+id/mhelpline"
+        android:text="Helpline"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView android:textColor="#000"
+        android:id="@+id/mWebsite"
+        android:text="Website"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView 
+        android:textColor="#000"
+        android:id="@+id/mEmail"
+        android:text="Email"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView android:textColor="#000"
+        android:id="@+id/mService"
+        android:text="Service Time"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    
+</LinearLayout>
+</ScrollView>

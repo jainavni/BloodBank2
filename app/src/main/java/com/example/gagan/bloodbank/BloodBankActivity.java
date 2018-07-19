@@ -33,7 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BloodBankActivity extends AppCompatActivity {
+public class BloodBankActivity extends AppCompatActivity implements BloodBankAdapter.BloodBankClickListener{
 
     String URL;
     private RecyclerView mRecyclerView;
@@ -56,11 +56,32 @@ public class BloodBankActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
         mListData = new ArrayList<>();
-        mListAdapter = new BloodBankAdapter(mListData, this);
+        mListAdapter = new BloodBankAdapter(mListData, this,this);
         mRecyclerView.setAdapter(mListAdapter);
         new AsyncTaskBank().execute(URL);
         mProgressBar.setVisibility(View.VISIBLE);
 
+    }
+
+    @Override
+    public void onItemClick(View view, int position)
+    {
+        Log.d("AVNI" , "itemClicked");
+        Intent intent = new Intent(this,BloodBankInfo.class);
+        intent.putExtra("name", mListData.get(position).getBloodBankName());
+        intent.putExtra("district", mListData.get(position).getDistrict());
+        intent.putExtra("city", mListData.get(position).getCity());
+        intent.putExtra("state", mListData.get(position).getState());
+        intent.putExtra("address", mListData.get(position).getAddress());
+        intent.putExtra("pincode", mListData.get(position).getPincode());
+        intent.putExtra("email", mListData.get(position).getEmail());
+        intent.putExtra("website", mListData.get(position).getWebsite());
+        intent.putExtra("contact", mListData.get(position).getContactno());
+        intent.putExtra("helpline", mListData.get(position).getHelpline());
+        intent.putExtra("servicetime", mListData.get(position).getServicetime());
+
+        Log.d("AVNI", "intent " + intent);
+        startActivity(intent);
     }
 
     public class AsyncTaskBank extends AsyncTask<String, Void, String>{
@@ -110,16 +131,33 @@ public class BloodBankActivity extends AppCompatActivity {
                 {
                     JSONArray bloodBank = banksList.getJSONArray(i);
                     //JsonArray bloodBank = bank.getAsJsonArray();
-                    String bankName =  bloodBank.get(4).toString();
-                    String district = bloodBank.get(3).toString();
-                    String city = bloodBank.get(2).toString();
+
                     String state = bloodBank.get(1).toString();
+                    String city = bloodBank.get(2).toString();
+                    String district = bloodBank.get(3).toString();
+                    String bankName =  bloodBank.get(4).toString();
+                    String address = bloodBank.get(5).toString();
+                    String pincode = bloodBank.get(6).toString();
+                    String contactno = bloodBank.get(7).toString();
+                    String helpline = bloodBank.get(8).toString();
+                    String website = bloodBank.get(11).toString();
+                    String email = bloodBank.get(12).toString();
+                    String servicetime = bloodBank.get(15).toString();
+
 
                     item = new BloodBankItem();
                     item.setBloodBankName(bankName);
                     item.setDistrict(district);
                     item.setCity(city);
                     item.setState(state);
+                    item.setAddress(address);
+                    item.setPincode(pincode);
+                    item.setHelpline(helpline);
+                    item.setEmail(email);
+                    item.setWebsite(website);
+                    item.setContactno(contactno);
+                    item.setServicetime(servicetime);
+
 
                     mListData.add(item);
                    // mListAdapter.notifyDataSetChanged();
