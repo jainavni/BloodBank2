@@ -20,22 +20,23 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".PhoneVerify">
+        <activity android:name=".PhoneVerify"></activity>
+        <activity android:name=".hello"></activity>
+        <activity android:name=".ProfileInfo" />
+        <activity android:name=".Profile" />
+        <activity android:name=".EditProfileActivity" />
+        <activity
+            android:name=".ViewPagerActivity"
+            android:label="@string/title_activity_view_pager"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity android:name=".BloodBankActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".hello">
-
-        </activity>
-        <activity android:name=".Profile" />
-        <activity android:name=".EditProfileActivity" />
-        <activity
-            android:name=".ViewPagerActivity"
-            android:label="@string/title_activity_view_pager"
-            android:theme="@style/Theme.Design.NoActionBar"></activity>
+        <activity android:name=".BloodBankInfo"></activity>
     </application>
 
 </manifest>

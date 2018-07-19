@@ -47,11 +47,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position)
         {
             case 0:
-                return "Donar";
+                return "Donors";
             case 1:
-                return "Reciver";
+                return "Recivers";
             case 3:
-                return "Blood Bank";
+                return "Blood Banks";
             default:
                 return null;
         }

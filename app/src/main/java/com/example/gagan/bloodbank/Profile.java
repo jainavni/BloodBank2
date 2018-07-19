@@ -134,7 +134,7 @@ public class Profile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(item.getItemId() == R.id.action_profile){
-            startActivity(new Intent(Profile.this, EditProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(Profile.this, ProfileInfo.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
         if (item.getItemId()==R.id.action_logout)
         {
